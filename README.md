@@ -178,36 +178,43 @@ out/
 
 ---
 
-## 🚀 Deploy no CloudPanel (VPS)
+## 🚀 Deploy na VPS Hostinger com CloudPanel
 
-### Pré-requisitos no servidor
-
-- VPS com Ubuntu 22.04 LTS (recomendado)
-- CloudPanel instalado ([guia oficial](https://www.cloudpanel.io/docs/v2/getting-started/))
-- Domínio apontando para o IP da VPS (registros DNS A configurados)
-- Acesso SSH ao servidor
+> **Tipo de deploy:** Site **estático** — o Next.js gera a pasta `out/` com HTML/CSS/JS puro.  
+> Não há servidor Node.js em execução em produção. Apenas o **Nginx** serve os arquivos.
 
 ---
 
-### Passo 1 — Criar o site no CloudPanel
+### Pré-requisitos
 
-1. Acesse o painel em `https://SEU_IP:8443`
-2. Vá em **Sites → Add Site**
-3. Preencha:
-   - **Domain Name:** `vsreboque.com.br` (ou seu domínio)
-   - **Site User:** `vsreboque`
-   - **PHP Version:** *(deixe em branco — não usamos PHP)*
-   - **Type:** **Static**
-4. Clique em **Create**
-
-> O CloudPanel criará automaticamente o diretório `/home/vsreboque/htdocs/vsreboque.com.br/`
+- VPS Hostinger com **Ubuntu 22.04 LTS**
+- CloudPanel instalado e acessível em `https://SEU_IP:8443`
+- Domínio com **DNS apontando para o IP da VPS** (registro A configurado no painel da Hostinger)
+- Acesso SSH ao servidor (usuário `root`)
+- Git instalado na VPS (`apt install git -y`)
 
 ---
 
-### Passo 2 — Instalar Node.js no servidor (para build remoto)
+### Passo 1 — Criar o Site no CloudPanel
 
-> **Alternativa A:** Fazer o build localmente e enviar apenas a pasta `out/` via SFTP.  
-> **Alternativa B:** Fazer o build direto no servidor (descrita abaixo).
+1. Acesse: `https://SEU_IP:8443`
+2. Vá em **Sites → + Add Site**
+3. Preencha o formulário:
+
+   | Campo | Valor |
+   |-------|-------|
+   | **Domain Name** | `vsreboque.com.br` |
+   | **Site User** | `vsreboque` |
+   | **Site User Password** | *(crie uma senha segura)* |
+   | **Type** | **Static** |
+
+4. Clique em **Create** e aguarde.
+
+> O CloudPanel cria automaticamente o diretório: `/home/vsreboque/htdocs/vsreboque.com.br/`
+
+---
+
+### Passo 2 — Instalar Node.js na VPS
 
 Conecte-se via SSH:
 
@@ -215,68 +222,63 @@ Conecte-se via SSH:
 ssh root@SEU_IP_VPS
 ```
 
-Instale o Node.js via NVM:
+Instale o Node.js 20 LTS via NVM:
 
 ```bash
 # Instalar NVM
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.bashrc
 
-# Instalar Node.js 20 LTS
+# Instalar e ativar Node.js 20
 nvm install 20
 nvm use 20
 nvm alias default 20
 
 # Verificar instalação
-node -v    # deve mostrar v20.x.x
-npm -v     # deve mostrar 10.x.x
+node -v   # v20.x.x
+npm -v    # 10.x.x
 ```
 
 ---
 
-### Passo 3 — Enviar o código para o servidor
-
-#### Opção A: Via Git (recomendado para atualizações frequentes)
+### Passo 3 — Clonar o Repositório e Gerar o Build
 
 ```bash
-# No servidor, dentro do diretório do site
+# Entrar na pasta do site criada pelo CloudPanel
 cd /home/vsreboque/htdocs/vsreboque.com.br
 
-# Clone o repositório
-git clone https://github.com/seu-usuario/vsreboque.git .
+# Remover o index.html padrão gerado pelo CloudPanel
+rm -f index.html
 
-# Instale as dependências
+# Clonar o repositório
+git clone https://github.com/rayhenrique/vsreboque.git .
+
+# Instalar dependências
 npm install
 
-# Gere o build estático
+# Gerar o build estático (cria a pasta out/)
 npm run build
 ```
 
-#### Opção B: Via SFTP (mais simples para primeiro deploy)
+Agora copie o conteúdo de `out/` para a raiz do site:
 
-1. Faça o build localmente:
-   ```bash
-   npm run build
-   ```
+```bash
+# Publicar os arquivos gerados na raiz que o Nginx aponta
+cp -r out/. /home/vsreboque/htdocs/vsreboque.com.br/
 
-2. Use um cliente SFTP (ex: **FileZilla**, **WinSCP**) com as credenciais:
-   - **Host:** `SEU_IP_VPS`
-   - **Usuário:** `vsreboque` (criado pelo CloudPanel)
-   - **Porta:** `22`
-   - **Senha:** a senha definida no CloudPanel ao criar o site
+# Confirmar que o index.html está no lugar certo
+ls /home/vsreboque/htdocs/vsreboque.com.br/index.html
+```
 
-3. Envie o **conteúdo** da pasta `out/` para:
-   ```
-   /home/vsreboque/htdocs/vsreboque.com.br/
-   ```
+> **Atenção:** o Next.js com `output: "export"` gera os arquivos na subpasta `out/`.  
+> O CloudPanel aponta o Nginx para a raiz, então é necessário copiar o conteúdo.
 
 ---
 
 ### Passo 4 — Configurar o Nginx no CloudPanel
 
-1. No CloudPanel, vá em **Sites → vsreboque.com.br → Nginx**
-2. Clique em **Vhost** (ou **Nginx Config**)
-3. Substitua o conteúdo pela configuração abaixo:
+1. No CloudPanel: **Sites → vsreboque.com.br → Vhost**
+2. Clique em **Edit** e substitua todo o conteúdo pela configuração abaixo:
 
 ```nginx
 server {
@@ -293,20 +295,20 @@ server {
     listen [::]:443 ssl http2;
     server_name vsreboque.com.br www.vsreboque.com.br;
 
-    # Raiz dos arquivos estáticos (pasta out/ do Next.js)
+    # Raiz dos arquivos estáticos gerados pelo Next.js
     root /home/vsreboque/htdocs/vsreboque.com.br;
     index index.html;
 
-    # SSL — será preenchido automaticamente pelo CloudPanel/Let's Encrypt
+    # SSL — preenchido automaticamente pelo CloudPanel / Let's Encrypt
     ssl_certificate     /etc/letsencrypt/live/vsreboque.com.br/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/vsreboque.com.br/privkey.pem;
 
-    # Segurança
-    add_header X-Frame-Options "SAMEORIGIN" always;
-    add_header X-Content-Type-Options "nosniff" always;
-    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    # Headers de segurança
+    add_header X-Frame-Options        "SAMEORIGIN"                      always;
+    add_header X-Content-Type-Options "nosniff"                         always;
+    add_header Referrer-Policy        "strict-origin-when-cross-origin" always;
 
-    # Cache agressivo para assets do Next.js (_next/static)
+    # Cache de longa duração para assets imutáveis do Next.js
     location /_next/static/ {
         expires 1y;
         add_header Cache-Control "public, immutable";
@@ -320,7 +322,7 @@ server {
         access_log off;
     }
 
-    # Fallback para SPA/páginas estáticas com trailingSlash
+    # Rotas estáticas com trailingSlash
     location / {
         try_files $uri $uri/ $uri.html /index.html =404;
     }
@@ -328,7 +330,16 @@ server {
     # Compressão Gzip
     gzip on;
     gzip_vary on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        application/json
+        application/javascript
+        text/xml
+        application/xml
+        image/svg+xml;
     gzip_min_length 1024;
 
     # Logs
@@ -337,68 +348,87 @@ server {
 }
 ```
 
-4. Clique em **Save & Restart Nginx**
+3. Clique em **Save & Restart Nginx**
 
 ---
 
-### Passo 5 — Configurar SSL (HTTPS gratuito com Let's Encrypt)
+### Passo 5 — Emitir Certificado SSL (HTTPS gratuito)
 
-1. No CloudPanel, vá em **Sites → vsreboque.com.br → SSL/TLS**
+> ⚠️ O DNS precisa estar **propagado** antes deste passo. Verifique em [dnschecker.org](https://dnschecker.org).
+
+1. No CloudPanel: **Sites → vsreboque.com.br → SSL/TLS**
 2. Clique em **Actions → New Let's Encrypt Certificate**
-3. Confirme os domínios: `vsreboque.com.br` e `www.vsreboque.com.br`
+3. Marque os domínios: `vsreboque.com.br` e `www.vsreboque.com.br`
 4. Clique em **Create and Install**
-
-> ⚠️ O DNS do domínio precisa estar apontando para o IP da VPS **antes** de gerar o certificado.
+5. Aguarde ~1 minuto para o certificado ser emitido e instalado automaticamente
 
 ---
 
-### Passo 6 — Verificar o deploy
+### Passo 6 — Verificar o Deploy
 
-Acesse no browser: `https://vsreboque.com.br`
+Acesse `https://vsreboque.com.br` e confirme:
 
-Verifique:
-- [ ] Página carrega corretamente
-- [ ] HTTPS ativo (cadeado verde)
-- [ ] Logo aparece no header e footer
-- [ ] Botão WhatsApp funciona
-- [ ] FAB (botão flutuante) aparece no canto inferior direito
-- [ ] Schema Markup presente (teste em [schema.org/validator](https://validator.schema.org/))
-- [ ] Meta tags SEO corretas (inspecione o HTML ou use [metatags.io](https://metatags.io))
+- [ ] Página carrega sem erros
+- [ ] HTTPS ativo (cadeado no browser)
+- [ ] Logo e ícones aparecem corretamente
+- [ ] Botões de WhatsApp e telefone funcionam
+- [ ] FAB (botão flutuante verde) aparece no canto inferior direito
+- [ ] Responsivo no mobile
+- [ ] Schema Markup válido → [validator.schema.org](https://validator.schema.org)
+- [ ] SEO correto → [metatags.io](https://metatags.io)
 
 ---
 
 ## 🔄 Manutenção e Atualizações
 
-### Fluxo para atualizar o site
+### Fluxo completo para atualizar o site
 
 ```bash
-# 1. No computador local — faça as alterações no código
+# ─── NO SEU COMPUTADOR LOCAL ──────────────────────────────────
+
+# 1. Faça as alterações no código (ex: lib/constants.ts)
 # 2. Gere o novo build
 npm run build
 
-# 3. Envie a pasta out/ para o servidor via SFTP
-#    OU, se estiver usando Git no servidor:
+# 3. Commit e push para o GitHub
+git add .
+git commit -m "fix: descrição da alteração"
+git push origin main
+
+# ─── NO SERVIDOR VPS (via SSH) ────────────────────────────────
 
 ssh root@SEU_IP_VPS
 cd /home/vsreboque/htdocs/vsreboque.com.br
+
+# 4. Puxar as últimas alterações
 git pull origin main
+
+# 5. (Se package.json mudou) Atualizar dependências
+npm install
+
+# 6. Gerar novo build estático
 npm run build
+
+# 7. Publicar os novos arquivos
+cp -r out/. /home/vsreboque/htdocs/vsreboque.com.br/
 ```
 
 ### Tarefas de manutenção comuns
 
 | Tarefa | Arquivo a editar |
-|--------|-----------------|
+|--------|------------------|
 | Alterar número de telefone/WhatsApp | `lib/constants.ts` |
-| Adicionar/remover serviço | `components/Services.tsx` |
+| Adicionar ou remover serviço | `components/Services.tsx` |
 | Alterar textos da Hero | `components/Hero.tsx` |
 | Alterar dados do footer | `components/Footer.tsx` |
 | Atualizar title/description SEO | `app/layout.tsx` |
-| Trocar a logo/ícone | `public/icon.png` e `public/favicon.png` |
+| Trocar a logo ou ícone | `public/icon.png` e `public/favicon.png` |
+
+> ⚠️ **Após qualquer alteração:** sempre execute `npm run build` e publique a pasta `out/` novamente.
 
 ### Renovação automática do SSL
 
-O CloudPanel renova os certificados Let's Encrypt automaticamente a cada 90 dias. Nenhuma ação manual necessária.
+O CloudPanel renova os certificados Let's Encrypt **automaticamente** a cada 90 dias. Nenhuma ação manual necessária.
 
 ---
 
