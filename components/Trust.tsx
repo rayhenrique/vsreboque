@@ -132,6 +132,97 @@ export default function Trust() {
             })}
           </div>
         </div>
+        {/* Coverage section for Local SEO */}
+        <div className="mt-20 pt-16 border-t border-slate-800/80">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl font-extrabold text-white mb-3">
+              Área de Atendimento e Cobertura (Até 250km)
+            </h3>
+            <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+              Nossa base estratégica em <strong className="text-slate-300">Teotônio Vilela - AL</strong> nos permite oferecer socorro veicular rápido nas principais rodovias (como a BR-101) e atendimento em diversas cidades e regiões vizinhas:
+            </p>
+          </div>
+
+          <div className="space-y-6 max-w-4xl mx-auto">
+            {/* Alagoas */}
+            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/60">
+              <h4 className="text-sm font-bold uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-amber-500 rounded-full" />
+                Alagoas (Cidades Principais e Rodovias)
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Teotônio Vilela (Base)",
+                  "Arapiraca",
+                  "São Miguel dos Campos",
+                  "Campo Alegre",
+                  "Junqueiro",
+                  "Coruripe",
+                  "Penedo",
+                  "Maceió",
+                  "Palmeira dos Índios",
+                  "Boca da Mata",
+                  "Maribondo",
+                  "Anadia",
+                  "São Sebastião",
+                  "Limoeiro de Anadia",
+                  "Marechal Deodoro",
+                  "Rio Largo",
+                  "Pilar",
+                  "Porto Real do Colégio",
+                  "Igreja Nova",
+                  "Jequiá da Praia",
+                  "Feliz Deserto",
+                  "Piaçabuçu"
+                ].map((city, idx) => (
+                  <span
+                    key={idx}
+                    className="text-xs text-slate-300 bg-slate-800/70 border border-slate-700/40 rounded-lg px-3 py-1.5 hover:border-amber-500/30 hover:text-white transition-colors"
+                  >
+                    {city}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Divisas Sergipe & Pernambuco */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/60">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-amber-500 rounded-full" />
+                  Divisa com Sergipe
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Propriá", "Neópolis", "Pacatuba", "Carira", "Aracaju", "Nossa Senhora do Socorro"].map((city, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs text-slate-300 bg-slate-800/70 border border-slate-700/40 rounded-lg px-3 py-1.5"
+                    >
+                      {city}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/60">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-amber-500 rounded-full" />
+                  Divisa com Pernambuco
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Garanhuns", "Caruaru", "Palmares", "Bom Conselho", "Lajedo"].map((city, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs text-slate-300 bg-slate-800/70 border border-slate-700/40 rounded-lg px-3 py-1.5"
+                    >
+                      {city}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

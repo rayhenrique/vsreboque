@@ -13,14 +13,14 @@ const schemaMarkup = {
   "@type": "AutomotiveBusiness",
   name: "VS Reboque",
   description:
-    "Serviços de guincho, reboque e assistência veicular 24h em Teotônio Vilela e região de Alagoas. Atendemos carros, motos e veículos especiais.",
-  url: "https://vsreboque.com.br",
+    "Serviços de guincho 24h, reboque e assistência veicular em Teotônio Vilela e região de Alagoas. Atendemos carros, motos, vans, caminhões leves e máquinas em um raio de até 250km.",
+  url: "https://vsreboque.kltecnologia.com",
   telephone: "+55-82-99192-6889",
-  alternateName: "VS Reboque Assistência Veicular",
+  alternateName: "VS Reboque Assistência Veicular 24h",
   email: "valmirvitor41@gmail.com",
   taxID: "67.083.875/0001-75",
-  logo: "https://vsreboque.com.br/logo.png",
-  image: "https://vsreboque.com.br/og-image.jpg",
+  logo: "https://vsreboque.kltecnologia.com/favicon.png",
+  image: "https://vsreboque.kltecnologia.com/favicon.png",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Rua Francisco Pôrto, 337",
@@ -50,67 +50,84 @@ const schemaMarkup = {
   },
   priceRange: "$$",
   areaServed: [
-    "Teotônio Vilela",
-    "Alagoas",
-    "AL",
-    "Nordeste do Brasil",
+    { "@type": "AdministrativeArea", "name": "Teotônio Vilela" },
+    { "@type": "AdministrativeArea", "name": "Arapiraca" },
+    { "@type": "AdministrativeArea", "name": "São Miguel dos Campos" },
+    { "@type": "AdministrativeArea", "name": "Campo Alegre" },
+    { "@type": "AdministrativeArea", "name": "Junqueiro" },
+    { "@type": "AdministrativeArea", "name": "Coruripe" },
+    { "@type": "AdministrativeArea", "name": "Penedo" },
+    { "@type": "AdministrativeArea", "name": "Maceió" },
+    { "@type": "AdministrativeArea", "name": "Palmeira dos Índios" },
+    { "@type": "AdministrativeArea", "name": "Boca da Mata" },
+    { "@type": "AdministrativeArea", "name": "Limoeiro de Anadia" },
+    { "@type": "AdministrativeArea", "name": "São Sebastião" },
+    { "@type": "AdministrativeArea", "name": "Rio Largo" },
+    { "@type": "AdministrativeArea", "name": "Marechal Deodoro" },
+    { "@type": "AdministrativeArea", "name": "Propriá" },
+    { "@type": "AdministrativeArea", "name": "Garanhuns" },
+    { "@type": "AdministrativeArea", "name": "Alagoas" }
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Serviços de Reboque e Assistência Veicular",
+    name: "Serviços de Reboque, Guincho e Assistência Veicular 24h",
     itemListElement: [
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Reboque de Carros",
-          description:
-            "Reboque de carros de todos os portes: pequenos, médios e grandes.",
-        },
+          name: "Reboque de Carros e SUVs",
+          description: "Guincho rápido para automóveis de passeio, SUVs e caminhonetes."
+        }
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Reboque de Motocicletas",
-          description: "Reboque especializado para motocicletas.",
-        },
+          name: "Reboque de Motos",
+          description: "Transporte seguro e especializado para motocicletas com prancha adaptada."
+        }
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Reboque de Veículos Especiais",
-          description: "Reboque de veículos especiais e pesados.",
-        },
+          name: "Reboque de Vans e Caminhões Leves",
+          description: "Guincho com plataforma reforçada para vans, utilitários e caminhões de pequeno porte."
+        }
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Transporte de Cargas",
-          description:
-            "Transporte local e de longa distância de cargas.",
-        },
+          name: "Socorro e Carga de Bateria (Chupeta)",
+          description: "Auxílio de partida rápida para panes elétricas de bateria na rodovia ou residência."
+        }
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Assistência em Estrada",
-          description:
-            "Bateria (chupeta e substituição), entrega de combustível, troca de pneus e serviços gerais.",
-        },
+          name: "Troca de Pneu Furado",
+          description: "Assistência ágil para troca de pneu furado ou danificado na estrada."
+        }
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Motorista/Piloto de Apoio",
-          description:
-            "Motorista ou piloto de apoio quando necessário.",
-        },
+          name: "Pane Seca / Entrega de Combustível",
+          description: "Suporte com abastecimento emergencial de combustível (gasolina/diesel)."
+        }
       },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Reboque de Máquinas e Equipamentos",
+          description: "Transporte de pequenas máquinas industriais ou agrícolas com total segurança."
+        }
+      }
     ],
   },
   sameAs: [
@@ -120,51 +137,61 @@ const schemaMarkup = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vsreboque.com.br"),
-  title: "Guincho e Reboque 24h em Teotônio Vilela - AL | VS Reboque",
+  metadataBase: new URL("https://vsreboque.kltecnologia.com"),
+  title: "Guincho e Reboque 24h | Teotônio Vilela e Região (250km) | VS Reboque",
   description:
-    "VS Reboque — Guincho e assistência veicular 24 horas em Teotônio Vilela e região de Alagoas. Reboque de carros, motos, transporte de carga, troca de pneu, socorro de bateria e mais. Chame agora pelo WhatsApp!",
+    "VS Reboque — Guincho 24 horas e reboque veicular ágil para carros, motos, vans e utilitários. Atendimento em Teotônio Vilela, Arapiraca, São Miguel dos Campos, Coruripe, Campo Alegre, Penedo, Maceió e região em até 250km. Chame já no WhatsApp!",
   keywords: [
     "guincho Teotônio Vilela",
     "reboque 24h Alagoas",
-    "assistência veicular AL",
-    "socorro mecânico estrada",
-    "reboque moto Teotônio Vilela",
-    "VS Reboque",
-    "guincho 24 horas",
-    "troca de pneu",
-    "socorro de bateria",
+    "guincho Arapiraca",
+    "reboque São Miguel dos Campos",
+    "reboque Coruripe",
+    "socorro veicular Campo Alegre",
+    "guincho Junqueiro",
+    "reboque Penedo",
+    "guincho Maceió 24h",
+    "guincho Propriá SE",
+    "reboque Garanhuns PE",
+    "assistência veicular BR-101",
+    "socorro mecânico estrada 24 horas",
+    "reboque de motos",
+    "guincho para vans",
+    "carga de bateria carro",
+    "troca de pneu furado",
+    "panes secas socorro"
   ],
   openGraph: {
-    title: "VS Reboque | Guincho e Assistência 24h — Teotônio Vilela - AL",
+    title: "VS Reboque | Guincho 24h e Assistência Veicular — Teotônio Vilela - AL",
     description:
-      "Precisou de guincho? A VS Reboque está disponível 24h para reboque, assistência em estrada e transporte de cargas. Atendemos Teotônio Vilela e toda a região de Alagoas.",
-    url: "https://vsreboque.com.br",
+      "Precisou de guincho? A VS Reboque oferece atendimento 24h para reboque de veículos, troca de pneus, carga de bateria e mais em Teotônio Vilela e um raio de até 250km.",
+    url: "https://vsreboque.kltecnologia.com",
     siteName: "VS Reboque",
     locale: "pt_BR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "VS Reboque | Guincho 24h — Teotônio Vilela - AL",
+    title: "VS Reboque | Guincho e Reboque 24h — Teotônio Vilela e Região",
     description:
-      "Guincho e assistência veicular 24h. Teotônio Vilela e região de Alagoas. Chame pelo WhatsApp!",
+      "Guincho e assistência veicular 24h. Atendemos em um raio de até 250km de Teotônio Vilela - AL. Chame pelo WhatsApp!",
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: "https://vsreboque.com.br",
+    canonical: "https://vsreboque.kltecnologia.com",
   },
   icons: {
     icon: [
-      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" }
     ],
     apple: [
-      { url: "/favicon.png" },
+      { url: "/favicon.png" }
     ],
-    shortcut: "/favicon.png",
+    shortcut: "/favicon.ico"
   },
 };
 
