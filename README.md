@@ -260,18 +260,8 @@ npm install
 npm run build
 ```
 
-Agora copie o conteúdo de `out/` para a raiz do site:
-
-```bash
-# Publicar os arquivos gerados na raiz que o Nginx aponta
-cp -r out/. /home/vsreboque/htdocs/vsreboque.com.br/
-
-# Confirmar que o index.html está no lugar certo
-ls /home/vsreboque/htdocs/vsreboque.com.br/index.html
-```
-
-> **Atenção:** o Next.js com `output: "export"` gera os arquivos na subpasta `out/`.  
-> O CloudPanel aponta o Nginx para a raiz, então é necessário copiar o conteúdo.
+> O Next.js com `output: "export"` gera os arquivos em `out/`.  
+> No Passo 4 vamos configurar o Nginx para servir direto dessa pasta — **sem precisar copiar nada**.
 
 ---
 
@@ -295,8 +285,8 @@ server {
     listen [::]:443 ssl http2;
     server_name vsreboque.com.br www.vsreboque.com.br;
 
-    # Raiz dos arquivos estáticos gerados pelo Next.js
-    root /home/vsreboque/htdocs/vsreboque.com.br;
+    # Aponta direto para a pasta out/ gerada pelo Next.js (sem necessidade de copiar arquivos)
+    root /home/vsreboque/htdocs/vsreboque.com.br/out;
     index index.html;
 
     # SSL — preenchido automaticamente pelo CloudPanel / Let's Encrypt
@@ -406,11 +396,9 @@ git pull origin main
 # 5. (Se package.json mudou) Atualizar dependências
 npm install
 
-# 6. Gerar novo build estático
+# 6. Gerar novo build estático — o Nginx serve direto de out/
 npm run build
-
-# 7. Publicar os novos arquivos
-cp -r out/. /home/vsreboque/htdocs/vsreboque.com.br/
+# ✅ Pronto! Nenhuma cópia necessária.
 ```
 
 ### Tarefas de manutenção comuns
