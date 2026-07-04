@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import Trust from "@/components/Trust";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
 export default function HomePage() {
   return (
@@ -28,6 +29,9 @@ export default function HomePage() {
 
       {/* Floating WhatsApp CTA — always visible */}
       <FloatingWhatsApp />
+
+      {/* PWA Install Suggestion Banner */}
+      <PWAInstallPrompt />
     </>
   );
 }
