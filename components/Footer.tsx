@@ -47,6 +47,12 @@ export default function Footer() {
             </Link>
             <Link
               href={PHONE_PRIMARY_HREF}
+              onClick={(e) => {
+                if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
+                  e.preventDefault();
+                  (window as any).gtag_report_conversion(PHONE_PRIMARY_HREF);
+                }
+              }}
               className="inline-flex items-center justify-center gap-2.5 bg-white/20 hover:bg-white/30 text-slate-900 font-bold px-6 py-4 rounded-xl text-base transition-all duration-200 active:scale-95"
             >
               <Phone size={20} />
@@ -97,6 +103,12 @@ export default function Footer() {
               <li>
                 <Link
                   href={PHONE_PRIMARY_HREF}
+                  onClick={(e) => {
+                    if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
+                      e.preventDefault();
+                      (window as any).gtag_report_conversion(PHONE_PRIMARY_HREF);
+                    }
+                  }}
                   className="flex items-start gap-2.5 text-slate-400 hover:text-amber-400 transition-colors text-sm group"
                 >
                   <Phone size={15} className="mt-0.5 shrink-0 group-hover:text-amber-400" />
@@ -111,6 +123,12 @@ export default function Footer() {
               <li>
                 <Link
                   href={PHONE_SECONDARY_HREF}
+                  onClick={(e) => {
+                    if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
+                      e.preventDefault();
+                      (window as any).gtag_report_conversion(PHONE_SECONDARY_HREF);
+                    }
+                  }}
                   className="flex items-start gap-2.5 text-slate-400 hover:text-amber-400 transition-colors text-sm group"
                 >
                   <Phone size={15} className="mt-0.5 shrink-0 group-hover:text-amber-400" />

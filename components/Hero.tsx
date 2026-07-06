@@ -79,6 +79,12 @@ export default function Hero() {
           {/* Secondary CTA — Call primary */}
           <Link
             href={PHONE_PRIMARY_HREF}
+            onClick={(e) => {
+              if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
+                e.preventDefault();
+                (window as any).gtag_report_conversion(PHONE_PRIMARY_HREF);
+              }
+            }}
             className="w-full sm:w-auto flex items-center justify-center gap-3 bg-slate-700/80 hover:bg-slate-600/80 text-white font-bold px-8 py-5 rounded-2xl text-lg transition-all duration-200 active:scale-95 border border-slate-500/50 hover:border-amber-500/50 min-h-[64px] backdrop-blur-sm"
             aria-label="Ligar para o guincho agora"
           >

@@ -45,6 +45,12 @@ export default function Header() {
         {/* ── CTA: Ligue Agora ─────────────────────────────────────── */}
         <Link
           href={PHONE_PRIMARY_HREF}
+          onClick={(e) => {
+            if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
+              e.preventDefault();
+              (window as any).gtag_report_conversion(PHONE_PRIMARY_HREF);
+            }
+          }}
           className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-4 py-2.5 rounded-xl text-sm transition-all duration-200 active:scale-95 shadow-md shadow-amber-500/25"
           aria-label={`Ligue agora para ${PHONE_PRIMARY}`}
         >
