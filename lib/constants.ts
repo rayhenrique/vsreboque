@@ -24,3 +24,9 @@ export const COMPANY_ZIP = "57265-398";
 
 export const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Rua+Francisco+P%C3%B4rto,+337,+Te%C3%B3tonio+Vilela,+AL";
+
+// ── Google Ads ────────────────────────────────────────────────────────────────
+
+export const GOOGLE_ADS_CALL_CONVERSION = "AW-1010713085/dMJiCJfO-cscEP2D-eED";
+export const GOOGLE_ADS_WHATSAPP_CONVERSION = "AW-1010713085/PLACEHOLDER_WHATSAPP_LABEL"; // Substitua pelo seu label do WhatsApp do Google Ads
+

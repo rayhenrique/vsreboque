@@ -18,6 +18,11 @@ export default function FloatingWhatsApp() {
           href={WHATSAPP_PRIMARY_URL}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            if (typeof window !== "undefined" && (window as any).gtag_report_whatsapp_conversion) {
+              (window as any).gtag_report_whatsapp_conversion();
+            }
+          }}
           aria-label="Abrir WhatsApp para solicitar guincho ou assistência"
           className="float-anim relative flex items-center justify-center w-16 h-16 bg-green-500 hover:bg-green-400 rounded-full shadow-2xl shadow-green-500/40 transition-all duration-200 hover:scale-110 active:scale-95"
         >

@@ -69,6 +69,11 @@ export default function Hero() {
             href={WHATSAPP_PRIMARY_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              if (typeof window !== "undefined" && (window as any).gtag_report_whatsapp_conversion) {
+                (window as any).gtag_report_whatsapp_conversion();
+              }
+            }}
             className="pulse-glow w-full sm:w-auto flex items-center justify-center gap-3 bg-green-500 hover:bg-green-400 text-white font-black px-8 py-5 rounded-2xl text-lg transition-all duration-200 active:scale-95 shadow-xl shadow-green-500/30 min-h-[64px]"
             aria-label="Chamar guincho pelo WhatsApp agora"
           >

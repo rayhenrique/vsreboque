@@ -40,6 +40,11 @@ export default function Footer() {
               href={WHATSAPP_PRIMARY_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                if (typeof window !== "undefined" && (window as any).gtag_report_whatsapp_conversion) {
+                  (window as any).gtag_report_whatsapp_conversion();
+                }
+              }}
               className="inline-flex items-center justify-center gap-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-4 rounded-xl text-base transition-all duration-200 active:scale-95"
             >
               <MessageCircle size={20} />
@@ -140,6 +145,11 @@ export default function Footer() {
                   href={WHATSAPP_PRIMARY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    if (typeof window !== "undefined" && (window as any).gtag_report_whatsapp_conversion) {
+                      (window as any).gtag_report_whatsapp_conversion();
+                    }
+                  }}
                   className="flex items-start gap-2.5 text-slate-400 hover:text-green-400 transition-colors text-sm group"
                 >
                   <MessageCircle size={15} className="mt-0.5 shrink-0" />
@@ -156,6 +166,11 @@ export default function Footer() {
                   href={WHATSAPP_SECONDARY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    if (typeof window !== "undefined" && (window as any).gtag_report_whatsapp_conversion) {
+                      (window as any).gtag_report_whatsapp_conversion();
+                    }
+                  }}
                   className="flex items-start gap-2.5 text-slate-400 hover:text-green-400 transition-colors text-sm group"
                 >
                   <MessageCircle size={15} className="mt-0.5 shrink-0" />

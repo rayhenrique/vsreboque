@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { GOOGLE_ADS_CALL_CONVERSION, GOOGLE_ADS_WHATSAPP_CONVERSION } from "@/lib/constants";
 import "./globals.css";
 
 const inter = Inter({
@@ -101,7 +102,7 @@ export default function RootLayout({
                 }
               };
               gtag('event', 'conversion', {
-                  'send_to': 'AW-1010713085/dMJiCJfO-cscEP2D-eED',
+                  'send_to': '${GOOGLE_ADS_CALL_CONVERSION}',
                   'value': 1.0,
                   'currency': 'BRL',
                   'event_callback': callback
@@ -109,6 +110,17 @@ export default function RootLayout({
               return false;
             }
             window.gtag_report_conversion = gtag_report_conversion;
+
+            function gtag_report_whatsapp_conversion() {
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'conversion', {
+                    'send_to': '${GOOGLE_ADS_WHATSAPP_CONVERSION}',
+                    'value': 1.0,
+                    'currency': 'BRL'
+                });
+              }
+            }
+            window.gtag_report_whatsapp_conversion = gtag_report_whatsapp_conversion;
           `}
         </Script>
         {children}
