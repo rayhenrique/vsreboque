@@ -60,12 +60,12 @@ export default function PWAInstallPrompt() {
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
-    // 6. Show after 5 seconds delay
+    // 6. Show after 10 seconds delay
     const timer = setTimeout(() => {
       // Only show if it's iOS OR we got the deferred install prompt (Android/Chrome)
       // On some platforms we can just show generic instructions even if deferredPrompt is null
       setShowPrompt(true);
-    }, 5000);
+    }, 10000);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
