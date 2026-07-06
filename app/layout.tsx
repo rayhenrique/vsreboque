@@ -14,13 +14,13 @@ const schemaMarkup = {
   name: "VS Reboque",
   description:
     "Serviços de guincho 24h, reboque e assistência veicular em Teotônio Vilela e região de Alagoas. Atendemos carros, motos, vans, caminhões leves e máquinas em um raio de até 250km.",
-  url: "https://vsreboque.kltecnologia.com",
+  url: "https://diskreboque.com.br",
   telephone: "+55-82-99192-6889",
   alternateName: "VS Reboque Assistência Veicular 24h",
   email: "valmirvitor41@gmail.com",
   taxID: "67.083.875/0001-75",
-  logo: "https://vsreboque.kltecnologia.com/favicon.png",
-  image: "https://vsreboque.kltecnologia.com/favicon.png",
+  logo: "https://diskreboque.com.br/favicon.png",
+  image: "https://diskreboque.com.br/favicon.png",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Rua Francisco Pôrto, 337",
@@ -137,7 +137,7 @@ const schemaMarkup = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vsreboque.kltecnologia.com"),
+  metadataBase: new URL("https://diskreboque.com.br"),
   title: "Guincho e Reboque 24h | Teotônio Vilela e Região (250km) | VS Reboque",
   description:
     "VS Reboque — Guincho 24 horas e reboque veicular ágil para carros, motos, vans e utilitários. Atendimento em Teotônio Vilela, Arapiraca, São Miguel dos Campos, Coruripe, Campo Alegre, Penedo, Maceió e região em até 250km. Chame já no WhatsApp!",
@@ -165,7 +165,7 @@ export const metadata: Metadata = {
     title: "VS Reboque | Guincho 24h e Assistência Veicular — Teotônio Vilela - AL",
     description:
       "Precisou de guincho? A VS Reboque oferece atendimento 24h para reboque de veículos, troca de pneus, carga de bateria e mais em Teotônio Vilela e um raio de até 250km.",
-    url: "https://vsreboque.kltecnologia.com",
+    url: "https://diskreboque.com.br",
     siteName: "VS Reboque",
     locale: "pt_BR",
     type: "website",
@@ -181,7 +181,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://vsreboque.kltecnologia.com",
+    canonical: "https://diskreboque.com.br",
   },
   manifest: "/manifest.json",
   icons: {

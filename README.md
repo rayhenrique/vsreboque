@@ -203,14 +203,14 @@ out/
 
    | Campo | Valor |
    |-------|-------|
-   | **Domain Name** | `vsreboque.com.br` |
-   | **Site User** | `vsreboque` |
+   | **Domain Name** | `diskreboque.com.br` |
+   | **Site User** | `diskreboque` |
    | **Site User Password** | *(crie uma senha segura)* |
    | **Type** | **Static** |
 
 4. Clique em **Create** e aguarde.
 
-> O CloudPanel cria automaticamente o diretório: `/home/vsreboque/htdocs/vsreboque.com.br/`
+> O CloudPanel cria automaticamente o diretório: `/home/diskreboque/htdocs/diskreboque.com.br/`
 
 ---
 
@@ -245,7 +245,7 @@ npm -v    # 10.x.x
 
 ```bash
 # Entrar na pasta do site criada pelo CloudPanel
-cd /home/vsreboque/htdocs/vsreboque.com.br
+cd /home/diskreboque/htdocs/diskreboque.com.br
 
 # Remover o index.html padrão gerado pelo CloudPanel
 rm -f index.html
@@ -267,14 +267,14 @@ npm run build
 
 ### Passo 4 — Configurar o Nginx no CloudPanel
 
-1. No CloudPanel: **Sites → vsreboque.com.br → Vhost**
+1. No CloudPanel: **Sites → diskreboque.com.br → Vhost**
 2. Clique em **Edit** e substitua todo o conteúdo pela configuração abaixo:
 
 ```nginx
 server {
     listen 80;
     listen [::]:80;
-    server_name vsreboque.com.br www.vsreboque.com.br;
+    server_name diskreboque.com.br www.diskreboque.com.br;
 
     # Redireciona HTTP → HTTPS
     return 301 https://$host$request_uri;
@@ -283,15 +283,15 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name vsreboque.com.br www.vsreboque.com.br;
+    server_name diskreboque.com.br www.diskreboque.com.br;
 
     # Aponta direto para a pasta out/ gerada pelo Next.js (sem necessidade de copiar arquivos)
-    root /home/vsreboque/htdocs/vsreboque.com.br/out;
+    root /home/diskreboque/htdocs/diskreboque.com.br/out;
     index index.html;
 
     # SSL — preenchido automaticamente pelo CloudPanel / Let's Encrypt
-    ssl_certificate     /etc/letsencrypt/live/vsreboque.com.br/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/vsreboque.com.br/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/diskreboque.com.br/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/diskreboque.com.br/privkey.pem;
 
     # Headers de segurança
     add_header X-Frame-Options        "SAMEORIGIN"                      always;
@@ -333,8 +333,8 @@ server {
     gzip_min_length 1024;
 
     # Logs
-    access_log /home/vsreboque/logs/nginx/access.log combined;
-    error_log  /home/vsreboque/logs/nginx/error.log warn;
+    access_log /home/diskreboque/logs/nginx/access.log combined;
+    error_log  /home/diskreboque/logs/nginx/error.log warn;
 }
 ```
 
@@ -346,9 +346,9 @@ server {
 
 > ⚠️ O DNS precisa estar **propagado** antes deste passo. Verifique em [dnschecker.org](https://dnschecker.org).
 
-1. No CloudPanel: **Sites → vsreboque.com.br → SSL/TLS**
+1. No CloudPanel: **Sites → diskreboque.com.br → SSL/TLS**
 2. Clique em **Actions → New Let's Encrypt Certificate**
-3. Marque os domínios: `vsreboque.com.br` e `www.vsreboque.com.br`
+3. Marque os domínios: `diskreboque.com.br` e `www.diskreboque.com.br`
 4. Clique em **Create and Install**
 5. Aguarde ~1 minuto para o certificado ser emitido e instalado automaticamente
 
@@ -356,7 +356,7 @@ server {
 
 ### Passo 6 — Verificar o Deploy
 
-Acesse `https://vsreboque.com.br` e confirme:
+Acesse `https://diskreboque.com.br` e confirme:
 
 - [ ] Página carrega sem erros
 - [ ] HTTPS ativo (cadeado no browser)
@@ -388,7 +388,7 @@ git push origin main
 # ─── NO SERVIDOR VPS (via SSH) ────────────────────────────────
 
 ssh root@SEU_IP_VPS
-cd /home/vsreboque/htdocs/vsreboque.com.br
+cd /home/diskreboque/htdocs/diskreboque.com.br
 
 # 4. Puxar as últimas alterações
 git pull origin main
@@ -427,7 +427,7 @@ O CloudPanel renova os certificados Let's Encrypt **automaticamente** a cada 90 
 ```
 Title:       "Guincho e Reboque 24h em Teotônio Vilela - AL | VS Reboque"
 Description: "VS Reboque — Guincho e assistência veicular 24h em Teotônio Vilela..."
-Canonical:   https://vsreboque.com.br
+Canonical:   https://diskreboque.com.br
 ```
 
 ### Schema JSON-LD (Structured Data)
