@@ -45,9 +45,9 @@ export default function Hero() {
 
         {/* Main heading - H1 for SEO */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-4 tracking-tight">
-          Precisando de{" "}
+          Guincho e Reboque 24h em{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
-            Guincho Agora?
+            Teotônio Vilela e Região
           </span>
         </h1>
 
