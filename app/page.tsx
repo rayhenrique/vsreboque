@@ -6,9 +6,51 @@ import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
+const schemaMarkup = {
+  "@context": "https://schema.org",
+  "@type": "AutoTowing",
+  name: "VS Reboque",
+  url: "https://diskreboque.com.br",
+  logo: "https://diskreboque.com.br/icon.png",
+  image: "https://diskreboque.com.br/icon.png",
+  telephone: "+5582991926889",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Rua Francisco Pôrto, 337",
+    addressLocality: "Teotônio Vilela",
+    addressRegion: "AL",
+    postalCode: "57265-398",
+    addressCountry: "BR",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -9.9450,
+    longitude: -36.3530,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    opens: "00:00",
+    closes: "23:59",
+  },
+};
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
+
       {/* Skip to main content for accessibility */}
       <a
         href="#main-content"
